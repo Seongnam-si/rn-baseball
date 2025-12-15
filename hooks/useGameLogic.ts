@@ -6,6 +6,7 @@ const useGameLogic = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [numLength, setNumLength] = useState<number>(0);
   const [comNumber, setComNumber] = useState<number[]>([]);
+  const [attempts, setAttempts] = useState([]);
 
   useEffect(() => {
     if (gameMode) {
@@ -20,7 +21,7 @@ const useGameLogic = () => {
   }, [gameMode]);
   
   return {
-    isModalOpen, setIsModalOpen, setGameMode
+    isModalOpen, setIsModalOpen, setGameMode, attempts
   }
 };
 
