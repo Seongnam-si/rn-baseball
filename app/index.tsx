@@ -1,15 +1,38 @@
-import { Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
 export default function Index() {
+
+  const handleTouch = () => {
+    router.push("./mainPage");
+  }
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <Pressable
+      className="
+        min-h-full w-full flex
+        items-center justify-center text-center px-4
+      "
+      onPress={handleTouch}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+      <View
+        className="
+          max-w-md w-full
+          items-center
+          tracking-widest
+        "
+      >
+        <Text
+          className="font-semibold text-5xl"
+        >
+          ⚾ 숫자야구 ⚾
+        </Text>
+        <Text
+          className="mt-12 text-xl"
+        >
+          화면을 터치해 주세요!
+        </Text>
+      </View>
+    </Pressable>
   );
 }
