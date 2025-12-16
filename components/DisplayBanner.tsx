@@ -3,6 +3,18 @@ import { DisplayBannerProps } from "@/types/types";
 import { Image, View } from "react-native";
 
 const IMAGE_HEIGHT = 128;
+const IMAGE_WIDTH = 128;
+const BALL_IMAGES: Record<number, any> = {
+  1: require("../public/BALL1.png"),
+  2: require("../public/BALL2.png"),
+  3: require("../public/BALL3.png"),
+  4: require("../public/BALL4.png"),
+};
+const STRIKE_IMAGES: Record<number, any> = {
+  1: require("../public/STRIKE1.png"),
+  2: require("../public/STRIKE2.png"),
+  3: require("../public/STRIKE3.png"),
+};
 
 const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
 	const { isVisible, contentType } = useBannerLogic({ modalState, attempts });
@@ -35,7 +47,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           }}
         >
           <Image
-            source={require(`../public/BALL${contentType.ballCount}.png`)}
+            source={BALL_IMAGES[contentType.ballCount]}
             style={{
               height: IMAGE_HEIGHT,
               resizeMode: "contain",
@@ -57,7 +69,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           }}
         >
           <Image
-            source={require(`../public/STRIKE${contentType.strikeCount}.png`)}
+            source={STRIKE_IMAGES[contentType.strikeCount]}
             style={{
               height: IMAGE_HEIGHT,
               resizeMode: "contain",
@@ -81,7 +93,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             }}
           >
             <Image
-              source={require(`../public/BALL${contentType.ballCount}.png`)}
+              source={BALL_IMAGES[contentType.ballCount]}
               style={{
                 height: IMAGE_HEIGHT,
                 resizeMode: "contain",
@@ -101,7 +113,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             }}
           >
             <Image
-              source={require(`../public/STRIKE${contentType.strikeCount}.png`)}
+              source={STRIKE_IMAGES[contentType.strikeCount]}
               style={{
                 height: IMAGE_HEIGHT,
                 resizeMode: "contain",
