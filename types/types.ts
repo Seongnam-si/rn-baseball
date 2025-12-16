@@ -9,3 +9,8 @@ export type Attempt = {
   inputNumber: number[];
   roundResult: JudgeResult;
 };
+
+export type DisplayBannerProps = {
+	modalState: boolean;
+	attempts: Attempt[];
+}
