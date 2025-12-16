@@ -43,6 +43,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
+            alignSelf: "center",
             transform: [{ rotate: "-3deg" }],
           }}
         >
@@ -50,13 +51,18 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             source={BALL_IMAGES[contentType.ballCount]}
             style={{
               height: IMAGE_HEIGHT,
+              width: IMAGE_WIDTH,
               resizeMode: "contain",
               marginRight: -96,
             }}
           />
           <Image
             source={require("../public/BALL.png")}
-            style={{ height: IMAGE_HEIGHT, resizeMode: "contain" }}
+            style={{ 
+              height: IMAGE_HEIGHT, 
+              width: IMAGE_WIDTH,
+              resizeMode: "contain" 
+            }}
           />
         </View>
       )}
@@ -65,6 +71,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
+            alignSelf: "center",
             transform: [{ rotate: "3deg" }],
           }}
         >
@@ -72,13 +79,18 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             source={STRIKE_IMAGES[contentType.strikeCount]}
             style={{
               height: IMAGE_HEIGHT,
+              width: IMAGE_WIDTH,
               resizeMode: "contain",
               marginRight: -80,
             }}
           />
           <Image
             source={require("../public/STRIKE.png")}
-            style={{ height: IMAGE_HEIGHT, resizeMode: "contain" }}
+            style={{ 
+              height: IMAGE_HEIGHT, 
+              width: IMAGE_WIDTH,
+              resizeMode: "contain" 
+            }}
           />
         </View>
       )}
@@ -88,6 +100,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
+              alignSelf: "center",
               transform: [{ rotate: "-6deg" }],
               marginRight: -48,
             }}
@@ -96,19 +109,25 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
               source={BALL_IMAGES[contentType.ballCount]}
               style={{
                 height: IMAGE_HEIGHT,
+                width: IMAGE_WIDTH,
                 resizeMode: "contain",
                 marginRight: -96,
               }}
             />
             <Image
               source={require("../public/BALL.png")}
-              style={{ height: IMAGE_HEIGHT, resizeMode: "contain" }}
+              style={{ 
+                height: IMAGE_HEIGHT, 
+                width: IMAGE_WIDTH,
+                resizeMode: "contain" 
+              }}
             />
           </View>
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
+              alignSelf: "center",
               transform: [{ rotate: "6deg" }],
             }}
           >
@@ -116,13 +135,18 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
               source={STRIKE_IMAGES[contentType.strikeCount]}
               style={{
                 height: IMAGE_HEIGHT,
+                width: IMAGE_WIDTH,
                 resizeMode: "contain",
                 marginRight: -80,
               }}
             />
             <Image
               source={require("../public/STRIKE.png")}
-              style={{ height: IMAGE_HEIGHT, resizeMode: "contain" }}
+              style={{ 
+                height: IMAGE_HEIGHT, 
+                width: IMAGE_WIDTH,
+                resizeMode: "contain" 
+              }}
             />
           </View>
         </View>
