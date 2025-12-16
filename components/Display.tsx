@@ -32,10 +32,10 @@ const Display = ({ attempts }: DisplayProps) => {
         <ScrollView
           className="divide-y divide-black/5"
           style={{ maxHeight: 260 }}
-          contentContainerStyle={{ paddingVertical: 8, paddingTop: 20 }}
+          contentContainerStyle={{ paddingVertical: 8 }}
         >
           {attempts.length === 0 ? (
-            <Text className="py-6 text-xl text-gray-800 text-center ">
+            <Text className="py-6 text-xl text-gray-800 text-center">
               숫자를 입력해 보세요!
             </Text>
           ) : (
@@ -66,9 +66,11 @@ const AttemptRow = ({
 
 	return (
 		<View
-			className={`flex-row py-3 items-center ${
-				isLatest ? "gap-3 px-4" : "gap-2 px-3"
-			}`}
+			className={`
+        flex-row py-3 items-center
+        ${isLatest ? "px-4 w-full" : "px-3 w-[92%] self-center"}
+        ${isLatest ? "gap-3" : "gap-2"}
+      `}
 			style={{ opacity }}
 		>
 			<Text className="flex-[0.4] text-sm text-gray-500">
