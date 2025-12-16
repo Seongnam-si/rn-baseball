@@ -1,20 +1,13 @@
+import { Attempt } from "@/types/types";
 import { ScrollView, Text, View } from "react-native";
 
 type DisplayProps = {
-  attempts: {
-    id?: string;
-    inputNumber: string;
-    roundResult: {
-      strike: number;
-      ball: number;
-      out: number;
-    };
-  }[];
+  attempts: Attempt[];
 };
 
 type AttemptRowProps = {
     index: number;
-    inputnumber: string;
+    inputnumber: number[];
     roundResult: {
       strike: number;
       ball: number;
