@@ -38,11 +38,13 @@ const InputWindow = ({
             <Pressable
               onPress={deleteNumberSetter}
               className="active:scale-95 p-1"
+              style={{ transform: [{ translateY: 3}] }}
             >
               <Image
                 source={require("@/public/backspace.png")}
                 className="h-6 w-6"
                 resizeMode="contain"
+                tintColor="black"
               />
             </Pressable>
             <Pressable
@@ -58,6 +60,7 @@ const InputWindow = ({
                 source={require("@/public/enter.png")}
                 className="h-6 w-6"
                 resizeMode="contain"
+                tintColor="black"
               />
             </Pressable>
           </View>
