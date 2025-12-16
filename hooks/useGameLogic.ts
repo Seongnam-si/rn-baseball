@@ -1,15 +1,25 @@
+import { Attempt } from "@/types/types";
 import createRandomNumber from "@/utils/createRandomNumber";
+import judgeResult from "@/utils/judgeResult";
 import { useEffect, useState } from "react";
 
 const useGameLogic = () => {
-  const [gameMode, setGameMode] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
-  const [numLength, setNumLength] = useState<number>(0);
-  const [comNumber, setComNumber] = useState<number[]>([]);
-  const [attempts, setAttempts] = useState([]);
-  const [inputNumber, setInputNumber] = useState<number[]>([]);
   const [isJudgeTrigger, setIsJudgeTrigger] = useState<boolean>(false);
   const [isCheckDone, setIsCheckDone] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [inputNumber, setInputNumber] = useState<number[]>([]);
+  const [comNumber, setComNumber] = useState<number[]>([]);
+  const [attempts, setAttempts] = useState<Attempt[]>([]);
+  const [attemptCount, setAttemptCount] = useState<number>(0);
+  const [gameMode, setGameMode] = useState<string>("");
+  const [gameState, setGameState] = useState<string>("intro");
+  const [numLength, setNumLength] = useState<number>(0);
+  const [inning, setInning] = useState<number>(11);
+  const [accumCount, setAccumCount] = useState({
+    ball: 0,
+    strike: 0,
+    out: 0
+  });
 
   useEffect(() => {
     if (gameMode) {
@@ -22,6 +32,73 @@ const useGameLogic = () => {
       }
     }
   }, [gameMode]);
+
+  useEffect(() => {
+    if (isJudgeTrigger && inputNumber.length !== 0 && attemptCount < inning) {
+      const returnResult = judgeResult(comNumber, inputNumber);
+
+      setAttempts((prev) => [
+        {
+          id: prev.length + 1,
+          inputNumber: inputNumber,
+          roundResult: returnResult,
+        },
+        ...prev
+      ]);
+
+      setAccumCount(prev => ({
+        strike: prev.strike + returnResult.strike,
+        ball: prev.ball + returnResult.ball,
+        out: prev.out + returnResult.out,
+      }));
+
+      setInputNumber([]);
+      setAttemptCount(prev => prev + 1);
+
+      if (returnResult.strike === numLength) {
+        setGameState("win");
+        setIsModalOpen(true);
+      }
+    }
+
+    setIsJudgeTrigger(false);
+  }, [isJudgeTrigger]);
+
+  useEffect(() => {
+    if (attemptCount > inning - 1) {
+      if (gameState !== "win") {
+        if (inning === 18) {
+          setGameState("extralose");
+        } else {
+          setGameState("lose");
+        }
+      }
+      setIsModalOpen(true);
+    }
+  }, [attemptCount, gameState, inning]);
+
+  useEffect(() => {
+    if (inputNumber.length === numLength && numLength > 0) {
+      setIsCheckDone(true);
+    } else {
+      setIsCheckDone(false);
+    }
+  }, [inputNumber, numLength]);
+
+  const resetGame = () => {
+    setIsModalOpen(true);
+    setInputNumber([]);
+    setAttempts([]);
+    setAttemptCount(0);
+    setGameState("intro");
+    setGameMode("");
+    setInning(11);
+    setAccumCount({
+      ball: 0,
+      strike: 0,
+      out: 0
+    });
+  };
 
   const handleClickDeleteNumber = () => {
     setInputNumber(prevNum => (
@@ -36,11 +113,16 @@ const useGameLogic = () => {
         prevNum
     );
   };
+
+  const playExtraInning = () => {
+    setInning(18);
+    setIsModalOpen(false);
+  }
   
   return {
-    isModalOpen, setIsModalOpen, setGameMode, attempts,
+    isModalOpen, setIsModalOpen, gameState, setGameMode, attempts,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
-    handleClickNumber
+    handleClickNumber, resetGame, playExtraInning,
   }
 };
 
