@@ -8,7 +8,7 @@ import { View } from "react-native";
 
 export default function MainPage() {
   const {
-    isModalOpen, setGameMode, gameState, resetGame, playExtraInning,
+    isModalOpen, setGameMode, gameState, resetGame, playExtraInning, endingMent,
     attempts,
     inputNumber, setIsJudgeTrigger, handleClickDeleteNumber, numLength, isCheckDone,
     handleClickNumber, 
@@ -22,6 +22,7 @@ export default function MainPage() {
         gameState={gameState}
         onRestart={resetGame}
         playExtraInning={playExtraInning}
+        endingMent={endingMent}
       />
       <Display
         attempts={attempts}

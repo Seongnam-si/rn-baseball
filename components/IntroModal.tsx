@@ -6,6 +6,7 @@ type ModalProps = {
   onRestart: () => void;
   gameModeSetter: (mode: "normal" | "hard") => void;
   playExtraInning: () => void;
+  endingMent: string;
 };
 
 const GameModal = ({
@@ -14,6 +15,7 @@ const GameModal = ({
   onRestart,
   gameModeSetter,
   playExtraInning,
+  endingMent
 }: ModalProps) => {
   if (!modalState) return null;
 
@@ -83,7 +85,8 @@ const GameModal = ({
                   source={require("../public/HOMERUN.png")}
                   style={{ height: 120, resizeMode: "contain" }}
                 />
-                <View style={{ gap: 12, marginTop: -16 }}>
+                <View style={{ gap: 12, marginTop: -12 }}>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>{endingMent}</Text>
                   <Pressable style={buttonStyle} onPress={onRestart}>
                     <Text style={buttonText}>처음으로 돌아가기</Text>
                   </Pressable>
