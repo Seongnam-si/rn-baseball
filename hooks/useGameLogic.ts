@@ -12,7 +12,7 @@ const useGameLogic = () => {
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [attemptCount, setAttemptCount] = useState<number>(0);
   const [gameMode, setGameMode] = useState<string>("");
-  const [gameState, setGameState] = useState<string>("intro");
+  const [gameState, setGameState] = useState<"intro" | "win" | "lose" | "extralose">("intro");
   const [numLength, setNumLength] = useState<number>(0);
   const [inning, setInning] = useState<number>(11);
   const [accumCount, setAccumCount] = useState({
