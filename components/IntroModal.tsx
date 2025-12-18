@@ -1,3 +1,4 @@
+import { GameStats, getAverageInnings } from "@/utils/storageLogics";
 import { Image, Modal, Pressable, ScrollView, Text, TextStyle, View, ViewStyle } from "react-native";
 
 type ModalProps = {
@@ -7,6 +8,8 @@ type ModalProps = {
   gameModeSetter: (mode: "normal" | "hard") => void;
   playExtraInning: () => void;
   endingMent: string;
+  gameStats: GameStats | null;
+  currentInning: number;
 };
 
 const GameModal = ({
@@ -15,9 +18,15 @@ const GameModal = ({
   onRestart,
   gameModeSetter,
   playExtraInning,
-  endingMent
+  endingMent,
+  gameStats,
+  currentInning
 }: ModalProps) => {
   if (!modalState) return null;
+
+  const averageInnings = gameStats 
+    ? getAverageInnings(gameStats, currentInning) 
+    : 0;
 
   return (
     <Modal transparent animationType="fade" visible={modalState}>
@@ -83,11 +92,26 @@ const GameModal = ({
               <View style={centerBox}>
                 <Image
                   source={require("../public/HOMERUN.png")}
-                  style={{ height: 120, resizeMode: "contain" }}
+                  style={{ height: 300, resizeMode: "contain", marginTop: -150, transform: [{ rotate: "-3deg" }] }}
                 />
-                <View style={{ gap: 12, marginTop: -12 }}>
-                  <Text style={{ fontSize: 18, fontWeight: "600" }}>{endingMent}</Text>
-                  <Pressable style={buttonStyle} onPress={onRestart}>
+                <View style={{ marginTop: -80 }}>
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {endingMent}
+                  </Text>
+                  <View style={{ gap: 6, marginTop: 10, alignItems: "center", backgroundColor: "rgba(0,0,0,0.09)", borderRadius: 12, padding: 5 }}>
+                    <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                      이번 게임 : {currentInning}이닝
+                    </Text>
+                    <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                      평균 기록 : {averageInnings > 0 
+                        ? `${averageInnings.toFixed(1)}이닝` 
+                        : "기록 없음"}
+                    </Text>
+                    <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                      총 플레이 : {gameStats?.totalGames || 0}회
+                    </Text>
+                  </View>
+                  <Pressable style={[buttonStyle, { marginTop: 20}]} onPress={onRestart}>
                     <Text style={buttonText}>처음으로 돌아가기</Text>
                   </Pressable>
                 </View>
@@ -150,7 +174,7 @@ const centerBox: ViewStyle = {
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
-  gap: 12,
+  gap: 6,
 };
 
 export default GameModal;
