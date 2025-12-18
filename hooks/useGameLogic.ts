@@ -1,4 +1,5 @@
 import { Attempt } from "@/types/types";
+import chooseEndingMent from "@/utils/chooseEndingMent";
 import createRandomNumber from "@/utils/createRandomNumber";
 import judgeResult from "@/utils/judgeResult";
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ const useGameLogic = () => {
     strike: 0,
     out: 0
   });
+  const [endingMent, setEndingMent] = useState<string>("");
 
   useEffect(() => {
     if (gameMode) {
@@ -57,6 +59,7 @@ const useGameLogic = () => {
 
       if (returnResult.strike === numLength) {
         setGameState("win");
+        setEndingMent(chooseEndingMent(inning));
         setIsModalOpen(true);
       }
     }
@@ -120,7 +123,7 @@ const useGameLogic = () => {
   }
   
   return {
-    isModalOpen, setIsModalOpen, gameState, setGameMode, attempts,
+    isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
   }
