@@ -13,7 +13,7 @@ const Keypad = ({ numberSetter }: KeypadProps) => {
       <SafeAreaView
         edges={["bottom"]}
         className="bg-white/80"
-        style={{ height: 260 }}
+        style={{ height: 300 }}
       >
         <View style={{ flexDirection: "row", flexWrap: "wrap", height: "100%" }}>
           {keys.map((num) => (

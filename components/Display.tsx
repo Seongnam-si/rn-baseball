@@ -24,7 +24,7 @@ const Display = ({ attempts }: DisplayProps) => {
       <View className="rounded-xl border border-black/10 bg-white/70 overflow-hidden">
         <ScrollView
           className="divide-y divide-black/5"
-          style={{ maxHeight: 260 }}
+          style={{ maxHeight: 300 }}
           contentContainerStyle={{ paddingVertical: 8 }}
         >
           {attempts.length === 0 ? (

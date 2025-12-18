@@ -20,7 +20,7 @@ const InputWindow = ({
     <SafeAreaView
       className="absolute left-0 right-0 px-4"
       style={{
-        bottom: 240
+        bottom: 280
       }}
     >
       <View className="mx-auto w-full max-w-md">
