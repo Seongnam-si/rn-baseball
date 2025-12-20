@@ -23,12 +23,12 @@ export default function Index() {
         "
       >
         <Text
-          className="font-semibold text-5xl"
+          className="font-semibold text-5xl leading-[56px]"
         >
           ⚾ 숫자야구 ⚾
         </Text>
         <Text
-          className="mt-12 text-xl"
+          className="mt-12 font-semibold text-xl"
         >
           화면을 터치해 주세요!
         </Text>
