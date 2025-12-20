@@ -112,6 +112,7 @@ const useGameLogic = () => {
       strike: 0,
       out: 0
     });
+    setComNumber([]);
   };
 
   const handleClickDeleteNumber = () => {
