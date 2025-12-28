@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 
 export default function Index() {
 
@@ -8,31 +8,25 @@ export default function Index() {
   }
 
   return (
-    <Pressable
-      className="
-        min-h-full w-full flex
-        items-center justify-center text-center px-4
-      "
-      onPress={handleTouch}
-    >
-      <View
-        className="
-          max-w-md w-full
-          items-center
-          tracking-widest
-        "
+    <View className="flex-1 px-6 items-center justify-center">
+      <Image 
+        source={require("../public/mainimg.png")}
+        style={{ resizeMode: "contain", height: 200 }}
+      />
+      <Text className="font-extrabold text-6xl tracking-wide text-gray-800 mt-8">
+        숫자야구
+      </Text>
+      <Text className="font-semibold text-2xl text-gray-600 mt-6">
+        숫자를 추리하고 홈런을 날리세요 ⚾️
+      </Text>
+      <Pressable 
+        className="rounded-full w-40 h-20 bg-[#0064FF] items-center justify-center mt-10"
+        onPress={handleTouch}
       >
-        <Text
-          className="font-semibold text-5xl leading-[56px]"
-        >
-          ⚾ 숫자야구 ⚾
+        <Text className="font-bold text-2xl text-white">
+          게임 시작
         </Text>
-        <Text
-          className="mt-12 font-semibold text-xl"
-        >
-          화면을 터치해 주세요!
-        </Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
