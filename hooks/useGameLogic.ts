@@ -86,6 +86,10 @@ const useGameLogic = () => {
         } else {
           setGameState("lose");
         }
+        const currentInning = attemptCount;
+        updateGameStats(currentInning).then((newStats) => {
+          setGameStats(newStats);
+        });
       }
       setIsModalOpen(true);
     }

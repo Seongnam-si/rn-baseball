@@ -100,7 +100,7 @@ const GameModal = ({
                   </Text>
                   <View style={{ gap: 6, marginTop: 10, alignItems: "center", backgroundColor: "rgba(0,0,0,0.09)", borderRadius: 12, padding: 5 }}>
                     <Text style={{ fontSize: 14, fontWeight: "400" }}>
-                      이번 게임 : {currentInning}이닝
+                      이번 게임 : {(currentInning - 1)}이닝
                     </Text>
                     <Text style={{ fontSize: 14, fontWeight: "400" }}>
                       평균 기록 : {averageInnings > 0 
