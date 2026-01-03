@@ -12,7 +12,7 @@ export default function MainPage() {
     attempts,
     inputNumber, setIsJudgeTrigger, handleClickDeleteNumber, numLength, isCheckDone,
     handleClickNumber, 
-    gameStats, attemptCount
+    gameStats, attemptCount, ballRatio, strikeRatio
   } = useGameLogic();
 
   return (
@@ -26,6 +26,8 @@ export default function MainPage() {
         endingMent={endingMent}
         gameStats={gameStats}
         currentInning={attemptCount + 1}
+        ballRatio={ballRatio}
+        strikeRatio={strikeRatio}
       />
       <Display
         attempts={attempts}

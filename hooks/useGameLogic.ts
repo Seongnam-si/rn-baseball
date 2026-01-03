@@ -25,6 +25,9 @@ const useGameLogic = () => {
   });
   const [endingMent, setEndingMent] = useState<string>("");
   const [gameStats, setGameStats] = useState<GameStats | null>(null);
+  const totalInputs = attemptCount * numLength;
+  const ballRatio = totalInputs > 0 ? accumCount.ball / totalInputs : 0;
+  const strikeRatio = totalInputs > 0 ? accumCount.strike / totalInputs : 0;
 
   useEffect(() => {
     loadGameStats().then(setGameStats);
@@ -168,7 +171,7 @@ const useGameLogic = () => {
     isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
-    gameStats, attemptCount
+    gameStats, attemptCount, ballRatio, strikeRatio
   }
 };
 
