@@ -74,6 +74,58 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
                 </View>
 							</View>
 						</View>
+						<View style={{ marginBottom: 16 }}>
+              <Text style={{ fontSize: 16, fontWeight: "600", marginBottom: 12 }}>게임별 기록</Text>
+              {recentGames.length === 0 ? (
+                <View style={{ padding: 20, alignItems: "center" }}>
+                  <Text style={{ fontSize: 14, color: "#999" }}>기록이 없습니다</Text>
+                </View>
+              ) : (
+                <View style={{ gap: 8 }}>
+                  {recentGames.map((game, index) => (
+                    <View
+                      key={index}
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.8)",
+                        borderRadius: 12,
+                        padding: 12,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View style={{ flex: 1 }}>
+                        <View style={{ flexDirection: "row", gap: 8, alignItems: "center", marginBottom: 4 }}>
+                          <Text style={{ fontSize: 14, fontWeight: "600", color: game.result === "win" ? "#22C55E" : "#EF4444" }}>
+                            {game.result === "win" ? "승리" : game.result === "extralose" ? "연장패배" : "패배"}
+                          </Text>
+                          <Text style={{ fontSize: 12, color: "#999" }}>
+                            {game.innings}이닝
+                          </Text>
+                          <Text style={{ fontSize: 12, color: "#999" }}>
+                            {game.numLength}자리
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: "row", gap: 12, marginTop: 4 }}>
+                          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                            <View style={{ width: 40, height: 8, backgroundColor: "#E5E7EB", borderRadius: 4, overflow: "hidden" }}>
+                              <View style={{ width: `${game.ballRatio * 100}%`, height: "100%", backgroundColor: "#22C55E" }} />
+                            </View>
+                            <Text style={{ fontSize: 10, color: "#666" }}>B</Text>
+                          </View>
+                          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                            <View style={{ width: 40, height: 8, backgroundColor: "#E5E7EB", borderRadius: 4, overflow: "hidden" }}>
+                              <View style={{ width: `${game.strikeRatio * 100}%`, height: "100%", backgroundColor: "#FACC15" }} />
+                            </View>
+                            <Text style={{ fontSize: 10, color: "#666" }}>S</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
 					</ScrollView>
 				</View>
 			</View>
