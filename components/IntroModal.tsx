@@ -168,14 +168,14 @@ const GameModal = ({
                   11번 안에 맞추지 못했어요.
                 </Text>
                 <Text style={{ marginTop: 4 }}>
-                  연장전을 진행하거나, 처음으로 돌아갈 수 있어요.
+                  연장전을 진행하거나, 게임을 포기할 수 있어요.
                 </Text>
                 <View style={{ gap: 12, marginTop: 16 }}>
                   <Pressable style={buttonStyle} onPress={playExtraInning}>
                     <Text style={buttonText}>연장전 진행</Text>
                   </Pressable>
-                  <Pressable style={buttonStyle} onPress={onRestart}>
-                    <Text style={buttonText}>처음으로 돌아가기</Text>
+                  <Pressable style={{ paddingHorizontal: 20, paddingVertical: 12, borderRadius: 12, alignItems: "center", backgroundColor: "#6B7280" }} onPress={onRestart}>
+                    <Text style={buttonText}>포기하기</Text>
                   </Pressable>
                 </View>
               </View>
