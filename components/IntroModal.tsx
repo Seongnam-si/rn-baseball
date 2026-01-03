@@ -10,6 +10,8 @@ type ModalProps = {
   endingMent: string;
   gameStats: GameStats | null;
   currentInning: number;
+  ballRatio: number;
+  strikeRatio: number;
 };
 
 const GameModal = ({
@@ -20,7 +22,9 @@ const GameModal = ({
   playExtraInning,
   endingMent,
   gameStats,
-  currentInning
+  currentInning,
+  ballRatio,
+  strikeRatio
 }: ModalProps) => {
   if (!modalState) return null;
 
@@ -98,7 +102,7 @@ const GameModal = ({
                   <Text style={{ fontSize: 18, fontWeight: "600" }}>
                     {endingMent}
                   </Text>
-                  <View style={{ gap: 6, marginTop: 10, alignItems: "center", backgroundColor: "rgba(0,0,0,0.09)", borderRadius: 12, padding: 5 }}>
+                  <View style={{ gap: 6, marginTop: 10, alignItems: "center", backgroundColor: "rgba(0,0,0,0.09)", borderRadius: 12, padding: 12 }}>
                     <Text style={{ fontSize: 14, fontWeight: "400" }}>
                       이번 게임 : {(currentInning - 1)}이닝
                     </Text>
@@ -110,6 +114,47 @@ const GameModal = ({
                     <Text style={{ fontSize: 14, fontWeight: "400" }}>
                       총 플레이 : {gameStats?.totalGames || 0}회
                     </Text>
+                    <View style={{ marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.1)", width: "100%", alignItems: "center" }}>
+                      <Text style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>이번 게임 비율</Text>
+                      <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+                        <View style={{ alignItems: "center" }}>
+                          <View
+                            style={{
+                              width: 60,
+                              height: 60,
+                              borderRadius: 30,
+                              backgroundColor: "#22C55E",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginBottom: 4,
+                            }}
+                          >
+                            <Text style={{ color: "white", fontWeight: "600" }}>
+                              {(ballRatio * 100).toFixed(0)}%
+                            </Text>
+                          </View>
+                          <Text style={{ fontSize: 10, color: "#666" }}>볼</Text>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                          <View
+                            style={{
+                              width: 60,
+                              height: 60,
+                              borderRadius: 30,
+                              backgroundColor: "#FACC15",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginBottom: 4,
+                            }}
+                          >
+                            <Text style={{ color: "white", fontWeight: "600" }}>
+                              {(strikeRatio * 100).toFixed(0)}%
+                            </Text>
+                          </View>
+                          <Text style={{ fontSize: 10, color: "#666" }}>스트라이크</Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
                   <Pressable style={[buttonStyle, { marginTop: 20}]} onPress={onRestart}>
                     <Text style={buttonText}>처음으로 돌아가기</Text>
