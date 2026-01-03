@@ -2,7 +2,8 @@ import { Attempt } from "@/types/types";
 import chooseEndingMent from "@/utils/chooseEndingMent";
 import createRandomNumber from "@/utils/createRandomNumber";
 import judgeResult from "@/utils/judgeResult";
-import { GameStats, loadGameStats, updateGameStats } from "@/utils/storageLogics";
+import { addGameRecord, GameStats, loadGameStats, updateGameStats } from "@/utils/storageLogics";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 
 const useGameLogic = () => {
@@ -65,10 +66,22 @@ const useGameLogic = () => {
 
       if (returnResult.strike === numLength) {
         const currentInning = attemptCount + 1;
+        const totalBall = accumCount.ball + returnResult.ball;
+        const totalStrike = accumCount.strike + returnResult.strike;
+        const totalInputs = currentInning * numLength;
+
         setGameState("win");
         setEndingMent(chooseEndingMent(inning));
         updateGameStats(currentInning).then((newStats) => {
           setGameStats(newStats);
+        });
+        addGameRecord({
+          result: "win",
+          innings: currentInning,
+          ballRatio: totalInputs > 0 ? totalBall / totalInputs : 0,
+          strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
+          numLength,
+          timestamp: Date.now(),
         });
         
         setIsModalOpen(true);
@@ -87,8 +100,20 @@ const useGameLogic = () => {
           setGameState("lose");
         }
         const currentInning = attemptCount;
+        const totalInputs = currentInning * numLength;
+        const totalBall = accumCount.ball;
+        const totalStrike = accumCount.strike;
+        
         updateGameStats(currentInning).then((newStats) => {
           setGameStats(newStats);
+        });
+        addGameRecord({
+          result: inning === 18 ? "extralose" : "lose",
+          innings: currentInning,
+          ballRatio: totalInputs > 0 ? totalBall / totalInputs : 0,
+          strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
+          numLength,
+          timestamp: Date.now(),
         });
       }
       setIsModalOpen(true);
@@ -117,6 +142,7 @@ const useGameLogic = () => {
       out: 0
     });
     setComNumber([]);
+    router.replace("/");
   };
 
   const handleClickDeleteNumber = () => {
