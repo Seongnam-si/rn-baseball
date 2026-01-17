@@ -3,6 +3,7 @@ import DisplayBanner from "@/components/DisplayBanner";
 import InputWindow from "@/components/InputWindow";
 import IntroModal from "@/components/IntroModal";
 import Keypad from "@/components/Keypad";
+import TopBanner from "@/components/TopBanner";
 import useGameLogic from "@/hooks/useGameLogic";
 import { View } from "react-native";
 
@@ -12,7 +13,7 @@ export default function MainPage() {
     attempts,
     inputNumber, setIsJudgeTrigger, handleClickDeleteNumber, numLength, isCheckDone,
     handleClickNumber, 
-    gameStats, attemptCount, ballRatio, strikeRatio
+    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec
   } = useGameLogic();
 
   return (
@@ -28,6 +29,11 @@ export default function MainPage() {
         currentInning={attemptCount + 1}
         ballRatio={ballRatio}
         strikeRatio={strikeRatio}
+        comNumber={comNumber}
+        sec={sec}
+      />
+      <TopBanner
+        sec={sec}
       />
       <Display
         attempts={attempts}

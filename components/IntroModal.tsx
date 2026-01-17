@@ -12,6 +12,8 @@ type ModalProps = {
   currentInning: number;
   ballRatio: number;
   strikeRatio: number;
+  comNumber: number[];
+  sec: number;
 };
 
 const GameModal = ({
@@ -24,7 +26,9 @@ const GameModal = ({
   gameStats,
   currentInning,
   ballRatio,
-  strikeRatio
+  strikeRatio,
+  comNumber,
+  sec
 }: ModalProps) => {
   if (!modalState) return null;
 
@@ -107,12 +111,7 @@ const GameModal = ({
                       이번 게임 : {(currentInning - 1)}이닝
                     </Text>
                     <Text style={{ fontSize: 14, fontWeight: "400" }}>
-                      평균 기록 : {averageInnings > 0 
-                        ? `${averageInnings.toFixed(1)}이닝` 
-                        : "기록 없음"}
-                    </Text>
-                    <Text style={{ fontSize: 14, fontWeight: "400" }}>
-                      총 플레이 : {gameStats?.totalGames || 0}회
+                      소요시간 : {sec} 초
                     </Text>
                     <View style={{ marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.1)", width: "100%", alignItems: "center" }}>
                       <Text style={{ fontSize: 12, color: "#666", marginBottom: 4 }}>이번 게임 비율</Text>
@@ -182,8 +181,11 @@ const GameModal = ({
             )}
             {gameState === "extralose" && (
               <View style={centerBox}>
-                <Text style={{ fontSize: 18, fontWeight: "600", color: "#B91C1C" }}>
+                <Text style={{ fontSize: 24, fontWeight: "600", color: "#B91C1C" }}>
                   패배했어요 🥲
+                </Text>
+                <Text style={{ fontSize: 18, fontWeight: "600", marginTop: 4 }}>
+                  정답은 {comNumber} 이었어요.
                 </Text>
                 <Text style={{ marginTop: 4 }}>
                   게임을 다시 시작해 보세요.

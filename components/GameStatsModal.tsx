@@ -29,6 +29,9 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
   const avgStrikeRatio = recentGames.length > 0
     ? recentGames.reduce((sum, g) => sum + g.strikeRatio, 0) / recentGames.length
     : 0;
+  const avgSec = recentGames.length > 0
+    ? recentGames.reduce((sum, g) => sum + g.sec, 0) / recentGames.length
+    : 0;
 
 	return (
 		<Modal transparent animationType="fade" visible={isVisible} onRequestClose={onClose}>
@@ -72,6 +75,10 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
                     {(avgStrikeRatio * 100).toFixed(1)}%
                   </Text>
                 </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                  <Text style={{ fontSize: 14, color: "#555" }}>평균 플레이 시간</Text>
+                  <Text style={{ fontSize: 14, fontWeight: "600" }}>{Math.round(avgSec)}초</Text>
+                </View>
 							</View>
 						</View>
 						<View style={{ marginBottom: 16 }}>
@@ -104,6 +111,9 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
                           </Text>
                           <Text style={{ fontSize: 12, color: "#999" }}>
                             {game.numLength}자리
+                          </Text>
+                          <Text style={{ fontSize: 12, color: "#999" }}>
+                            {game.sec}초
                           </Text>
                         </View>
                         <View style={{ flexDirection: "row", gap: 12, marginTop: 4 }}>

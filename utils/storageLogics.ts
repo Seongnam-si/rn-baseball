@@ -15,6 +15,7 @@ export type GameRecord = {
   strikeRatio: number;
   numLength: number;
   timestamp: number;
+  sec: number;
 }
 
 export type RecentGames = {
