@@ -66,7 +66,14 @@ export const loadRecentGames = async (): Promise<RecentGames> => {
   try {
     const data = await AsyncStorage.getItem(RECENT_GAME_KEY);
     if (data) {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data) as RecentGames;
+      const games = Array.isArray(parsed.games)
+        ? parsed.games.map((game) => ({
+            ...game,
+            sec: typeof game.sec === "number" ? game.sec : 0,
+          }))
+        : [];
+      return { games };
     }
     return { games: [] };
   } catch (error) {
