@@ -4,7 +4,7 @@ import createRandomNumber from "@/utils/createRandomNumber";
 import judgeResult from "@/utils/judgeResult";
 import { addGameRecord, GameStats, loadGameStats, updateGameStats } from "@/utils/storageLogics";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useGameLogic = () => {
   const [isJudgeTrigger, setIsJudgeTrigger] = useState<boolean>(false);
@@ -25,6 +25,8 @@ const useGameLogic = () => {
   });
   const [endingMent, setEndingMent] = useState<string>("");
   const [gameStats, setGameStats] = useState<GameStats | null>(null);
+  const [sec, setSec] = useState<number>(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const totalInputs = attemptCount * numLength;
   const ballRatio = totalInputs > 0 ? accumCount.ball / totalInputs : 0;
   const strikeRatio = totalInputs > 0 ? accumCount.strike / totalInputs : 0;
@@ -44,6 +46,29 @@ const useGameLogic = () => {
       }
     }
   }, [gameMode]);
+  
+  useEffect(() => {
+    const shouldRunTimer = Boolean(gameMode) && gameState !== "win" && gameState !== "extralose";
+
+    if (!shouldRunTimer) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setSec((s) => s + 1);
+    }, 1000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [gameMode, gameState]);
 
   useEffect(() => {
     if (isJudgeTrigger && inputNumber.length !== 0 && attemptCount < inning) {
@@ -85,6 +110,7 @@ const useGameLogic = () => {
           strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
           numLength,
           timestamp: Date.now(),
+          sec: sec
         });
         
         setIsModalOpen(true);
@@ -117,6 +143,7 @@ const useGameLogic = () => {
           strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
           numLength,
           timestamp: Date.now(),
+          sec: sec
         });
       }
       setIsModalOpen(true);
@@ -146,6 +173,7 @@ const useGameLogic = () => {
     });
     setComNumber([]);
     router.replace("/");
+    setSec(0);
   };
 
   const handleClickDeleteNumber = () => {
@@ -171,7 +199,7 @@ const useGameLogic = () => {
     isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
-    gameStats, attemptCount, ballRatio, strikeRatio
+    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec
   }
 };
 
