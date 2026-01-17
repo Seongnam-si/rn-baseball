@@ -30,6 +30,7 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
         paddingVertical: 16,
         alignItems: "center",
         justifyContent: "center",
+        marginTop: -30
       }}
     >
       {contentType.type === "playball" && (
