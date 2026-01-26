@@ -1,5 +1,5 @@
 import { GameRecord, loadRecentGames } from "@/utils/storageLogics";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 
 type GameStatsModalProps = {
@@ -10,13 +10,11 @@ type GameStatsModalProps = {
 const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
 	const [recentGames, setRecentGames] = useState<GameRecord[]>([]);
 
-  useEffect(() => {
-		if (isVisible) {
-			loadRecentGames().then((data) => {
-				setRecentGames(data.games);
-			});
-		}
-	}, [isVisible]);
+	const handleShow = () => {
+		loadRecentGames().then((data) => {
+			setRecentGames(data.games);
+		});
+	};
 
 	const winCount = recentGames.filter((g) => g.result === "win").length;
   const loseCount = recentGames.filter((g) => g.result === "lose" || g.result === "extralose").length;
@@ -34,7 +32,7 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
     : 0;
 
 	return (
-		<Modal transparent animationType="fade" visible={isVisible} onRequestClose={onClose}>
+		<Modal transparent animationType="fade" visible={isVisible} onRequestClose={onClose} onShow={handleShow}>
 			<View style={{ flex:1, backgroundColor: "rgba(0,0,0,0.3)", alignItems: "center", justifyContent: "center", padding: 16 }}>
 				<View style={{ width: "92%", maxWidth: 720, height: "80%", borderRadius: 16, backgroundColor: "rgba(240,240,240,0.95)", padding: 24}}>
 					<View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
