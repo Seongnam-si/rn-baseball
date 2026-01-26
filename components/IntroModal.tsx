@@ -1,11 +1,10 @@
-import { GameStats, getAverageInnings } from "@/utils/storageLogics";
+import { GameStats } from "@/utils/storageLogics";
 import { Image, Modal, Pressable, ScrollView, Text, TextStyle, View, ViewStyle } from "react-native";
 
 type ModalProps = {
   modalState: boolean;
   gameState?: "intro" | "win" | "lose" | "extralose";
   onRestart: () => void;
-  gameModeSetter: (mode: "normal" | "hard") => void;
   playExtraInning: () => void;
   endingMent: string;
   gameStats: GameStats | null;
@@ -14,27 +13,23 @@ type ModalProps = {
   strikeRatio: number;
   comNumber: number[];
   sec: number;
+  helpGameStart: (mode: "normal" | "hard") => void;
 };
 
 const GameModal = ({
   modalState,
   gameState = "intro",
   onRestart,
-  gameModeSetter,
   playExtraInning,
   endingMent,
-  gameStats,
   currentInning,
   ballRatio,
   strikeRatio,
   comNumber,
-  sec
+  sec,
+  helpGameStart
 }: ModalProps) => {
   if (!modalState) return null;
-
-  const averageInnings = gameStats 
-    ? getAverageInnings(gameStats, currentInning) 
-    : 0;
 
   return (
     <Modal transparent animationType="fade" visible={modalState}>
@@ -83,13 +78,13 @@ const GameModal = ({
                 <View style={{ flexDirection: "row", gap: 12, marginTop: 16 }}>
                   <Pressable
                     style={buttonStyle}
-                    onPress={() => gameModeSetter("normal")}
+                    onPress={() => helpGameStart("normal")}
                   >
                     <Text style={buttonText}>3 자리</Text>
                   </Pressable>
                   <Pressable
                     style={buttonStyle}
-                    onPress={() => gameModeSetter("hard")}
+                    onPress={() => helpGameStart("hard")}
                   >
                     <Text style={buttonText}>4 자리</Text>
                   </Pressable>

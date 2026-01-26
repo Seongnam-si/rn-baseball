@@ -30,18 +30,15 @@ const useGameLogic = () => {
   const totalInputs = attemptCount * numLength;
   const ballRatio = totalInputs > 0 ? accumCount.ball / totalInputs : 0;
   const strikeRatio = totalInputs > 0 ? accumCount.strike / totalInputs : 0;
+  
+  const helpGameStart = (mode: "normal" | "hard") => {
+    const length = mode === "normal" ? 3 : 4;
 
-  useEffect(() => {
-    if (gameMode) {
-      const length = gameMode === "normal" ? 3 : 4;
-
-      if (length) {
-        setNumLength(length);
-        setComNumber(createRandomNumber(length));
-        setIsModalOpen(false);
-      }
-    }
-  }, [gameMode]);
+    setGameMode(mode);
+    setNumLength(length);
+    setComNumber(createRandomNumber(length));
+    setIsModalOpen(false);
+  };
   
   useEffect(() => {
     const shouldRunTimer = Boolean(gameMode) && gameState !== "win" && gameState !== "extralose";
@@ -195,7 +192,7 @@ const useGameLogic = () => {
     isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
-    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, setGameStats
+    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, setGameStats, helpGameStart
   }
 };
 

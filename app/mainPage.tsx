@@ -9,18 +9,17 @@ import { View } from "react-native";
 
 export default function MainPage() {
   const {
-    isModalOpen, setGameMode, gameState, resetGame, playExtraInning, endingMent,
+    isModalOpen, gameState, resetGame, playExtraInning, endingMent,
     attempts,
     inputNumber, setIsJudgeTrigger, handleClickDeleteNumber, numLength, isCheckDone,
     handleClickNumber, 
-    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec
+    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, helpGameStart
   } = useGameLogic();
 
   return (
     <View className="flex-1">
       <IntroModal
         modalState={isModalOpen}
-        gameModeSetter={setGameMode}
         gameState={gameState}
         onRestart={resetGame}
         playExtraInning={playExtraInning}
@@ -31,6 +30,7 @@ export default function MainPage() {
         strikeRatio={strikeRatio}
         comNumber={comNumber}
         sec={sec}
+        helpGameStart={helpGameStart}
       />
       <TopBanner
         sec={sec}
