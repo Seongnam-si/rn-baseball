@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 
 const useGameLogic = () => {
   const [isJudgeTrigger, setIsJudgeTrigger] = useState<boolean>(false);
-  const [isCheckDone, setIsCheckDone] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [inputNumber, setInputNumber] = useState<number[]>([]);
   const [comNumber, setComNumber] = useState<number[]>([]);
@@ -30,6 +29,7 @@ const useGameLogic = () => {
   const totalInputs = attemptCount * numLength;
   const ballRatio = totalInputs > 0 ? accumCount.ball / totalInputs : 0;
   const strikeRatio = totalInputs > 0 ? accumCount.strike / totalInputs : 0;
+  const isCheckDone = inputNumber.length === numLength && numLength > 0;
   
   const helpGameStart = (mode: "normal" | "hard") => {
     const length = mode === "normal" ? 3 : 4;
@@ -142,14 +142,6 @@ const useGameLogic = () => {
       setIsModalOpen(true);
     }
   }, [attemptCount, gameState, inning]);
-
-  useEffect(() => {
-    if (inputNumber.length === numLength && numLength > 0) {
-      setIsCheckDone(true);
-    } else {
-      setIsCheckDone(false);
-    }
-  }, [inputNumber, numLength]);
 
   const resetGame = () => {
     setIsModalOpen(true);
