@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 type InputWindowProps = {
   userNumber: (number | null)[];
-  judgeTriggerSetter: () => void;
+  runJudgeResult: () => void;
   deleteNumberSetter: () => void;
   numLength: number;
   enterActivate: boolean;
@@ -11,7 +11,7 @@ type InputWindowProps = {
 
 const InputWindow = ({
   userNumber,
-  judgeTriggerSetter,
+  runJudgeResult,
   deleteNumberSetter,
   numLength,
   enterActivate,
@@ -50,7 +50,7 @@ const InputWindow = ({
             <Pressable
               onPress={() => {
                 if (!enterActivate) return;
-                judgeTriggerSetter();
+                runJudgeResult();
               }}
               className={`active:scale-95 p-1 ${
                 enterActivate ? "opacity-100" : "opacity-40"

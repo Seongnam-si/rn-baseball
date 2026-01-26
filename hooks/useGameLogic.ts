@@ -7,7 +7,6 @@ import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
 const useGameLogic = () => {
-  const [isJudgeTrigger, setIsJudgeTrigger] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [inputNumber, setInputNumber] = useState<number[]>([]);
   const [comNumber, setComNumber] = useState<number[]>([]);
@@ -63,85 +62,70 @@ const useGameLogic = () => {
     };
   }, [gameMode, gameState]);
 
-  useEffect(() => {
-    if (isJudgeTrigger && inputNumber.length !== 0 && attemptCount < inning) {
-      const returnResult = judgeResult(comNumber, inputNumber);
+  const recordGameResult = (
+    result: "win" | "lose" | "extralose",
+    currentInning: number,
+    totalBall: number,
+    totalStrike: number,
+    totalInputs: number
+  ) => {
+    updateGameStats(currentInning).then((newStats) => {
+      setGameStats(newStats);
+    });
+    addGameRecord({
+      result,
+      innings: currentInning,
+      ballRatio: totalInputs > 0 ? totalBall / totalInputs : 0,
+      strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
+      numLength,
+      timestamp: Date.now(),
+      sec: sec
+    });
+    setIsModalOpen(true);
+  };
 
-      setAttempts((prev) => [
-        {
-          id: prev.length + 1,
-          inputNumber: inputNumber,
-          roundResult: returnResult,
-        },
-        ...prev
-      ]);
-
-      setAccumCount(prev => ({
-        strike: prev.strike + returnResult.strike,
-        ball: prev.ball + returnResult.ball,
-        out: prev.out + returnResult.out,
-      }));
-
-      setInputNumber([]);
-      setAttemptCount(prev => prev + 1);
-
-      if (returnResult.strike === numLength) {
-        const currentInning = attemptCount + 1;
-        const totalBall = accumCount.ball + returnResult.ball;
-        const totalStrike = accumCount.strike + returnResult.strike;
-        const totalInputs = currentInning * numLength;
-
-        setGameState("win");
-        setEndingMent(chooseEndingMent(inning));
-        updateGameStats(currentInning).then((newStats) => {
-          setGameStats(newStats);
-        });
-        addGameRecord({
-          result: "win",
-          innings: currentInning,
-          ballRatio: totalInputs > 0 ? totalBall / totalInputs : 0,
-          strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
-          numLength,
-          timestamp: Date.now(),
-          sec: sec
-        });
-        
-        setIsModalOpen(true);
-      }
+  const runJudgeResult = () => {
+    if (inputNumber.length === 0 || attemptCount >= inning) {
+      return;
     }
 
-    setIsJudgeTrigger(false);
-  }, [isJudgeTrigger]);
+    const returnResult = judgeResult(comNumber, inputNumber);
+    const currentInning = attemptCount + 1;
+    const totalBall = accumCount.ball + returnResult.ball;
+    const totalStrike = accumCount.strike + returnResult.strike;
+    const totalInputs = currentInning * numLength;
 
-  useEffect(() => {
-    if (attemptCount > inning - 1) {
-      if (gameState !== "win") {
-        if (inning === 18) {
-          setGameState("extralose");
-        } else {
-          setGameState("lose");
-        }
-        const currentInning = attemptCount;
-        const totalInputs = currentInning * numLength;
-        const totalBall = accumCount.ball;
-        const totalStrike = accumCount.strike;
-        
-        updateGameStats(currentInning).then((newStats) => {
-          setGameStats(newStats);
-        });
-        addGameRecord({
-          result: inning === 18 ? "extralose" : "lose",
-          innings: currentInning,
-          ballRatio: totalInputs > 0 ? totalBall / totalInputs : 0,
-          strikeRatio: totalInputs > 0 ? totalStrike / totalInputs : 0,
-          numLength,
-          timestamp: Date.now(),
-          sec: sec
-        });
-      }
-      setIsModalOpen(true);
+    setAttempts((prev) => [
+      {
+        id: prev.length + 1,
+        inputNumber: inputNumber,
+        roundResult: returnResult,
+      },
+      ...prev
+    ]);
+
+    setAccumCount(prev => ({
+      strike: prev.strike + returnResult.strike,
+      ball: prev.ball + returnResult.ball,
+      out: prev.out + returnResult.out,
+    }));
+
+    setInputNumber([]);
+    setAttemptCount(prev => prev + 1);
+
+    if (returnResult.strike === numLength) {
+      setGameState("win");
+      setEndingMent(chooseEndingMent(inning));
+      recordGameResult("win", currentInning, totalBall, totalStrike, totalInputs);
+      return;
     }
-  }, [attemptCount, gameState, inning]);
+
+    if (currentInning >= inning) {
+      const result = inning === 18 ? "extralose" : "lose";
+      setGameState(result);
+      recordGameResult(result, currentInning, totalBall, totalStrike, totalInputs);
+    }
+  };
 
   const resetGame = () => {
     setIsModalOpen(true);
@@ -182,7 +166,7 @@ const useGameLogic = () => {
   
   return {
     isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
-    inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
+    inputNumber, runJudgeResult, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
     gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, setGameStats, helpGameStart
   }

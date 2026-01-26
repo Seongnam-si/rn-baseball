@@ -11,7 +11,7 @@ export default function MainPage() {
   const {
     isModalOpen, gameState, resetGame, playExtraInning, endingMent,
     attempts,
-    inputNumber, setIsJudgeTrigger, handleClickDeleteNumber, numLength, isCheckDone,
+    inputNumber, runJudgeResult, handleClickDeleteNumber, numLength, isCheckDone,
     handleClickNumber, 
     gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, helpGameStart
   } = useGameLogic();
@@ -44,7 +44,7 @@ export default function MainPage() {
       />
       <InputWindow
         userNumber={inputNumber}
-        judgeTriggerSetter={() => setIsJudgeTrigger(true)}
+        runJudgeResult={runJudgeResult}
         deleteNumberSetter={handleClickDeleteNumber}
         numLength={numLength}
         enterActivate={isCheckDone}
