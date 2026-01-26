@@ -1,12 +1,16 @@
 import GameStatsModal from "@/components/GameStatsModal";
+import useGameLogic from "@/hooks/useGameLogic";
+import { loadGameStats } from "@/utils/storageLogics";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 
 export default function Index() {
+  const { setGameStats } = useGameLogic();
   const [isShowStats, setIsShowStats] = useState<boolean>(false);
 
   const handleTouch = () => {
+    loadGameStats().then(setGameStats);
     router.push("./mainPage");
   }
 

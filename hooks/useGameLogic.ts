@@ -2,7 +2,7 @@ import { Attempt } from "@/types/types";
 import chooseEndingMent from "@/utils/chooseEndingMent";
 import createRandomNumber from "@/utils/createRandomNumber";
 import judgeResult from "@/utils/judgeResult";
-import { addGameRecord, GameStats, loadGameStats, updateGameStats } from "@/utils/storageLogics";
+import { addGameRecord, GameStats, updateGameStats } from "@/utils/storageLogics";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
@@ -30,10 +30,6 @@ const useGameLogic = () => {
   const totalInputs = attemptCount * numLength;
   const ballRatio = totalInputs > 0 ? accumCount.ball / totalInputs : 0;
   const strikeRatio = totalInputs > 0 ? accumCount.strike / totalInputs : 0;
-
-  useEffect(() => {
-    loadGameStats().then(setGameStats);
-  }, []);
 
   useEffect(() => {
     if (gameMode) {
@@ -199,7 +195,7 @@ const useGameLogic = () => {
     isModalOpen, setIsModalOpen, gameState, setGameMode, attempts, endingMent,
     inputNumber, setIsJudgeTrigger, numLength, isCheckDone, handleClickDeleteNumber,
     handleClickNumber, resetGame, playExtraInning,
-    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec
+    gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, setGameStats
   }
 };
 
