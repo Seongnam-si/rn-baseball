@@ -10,6 +10,9 @@ type GameStatsModalProps = {
 const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
+  const textSmall = isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile;
+  const textMedium = isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile;
+  const textLarge = isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile;
 	const [recentGames, setRecentGames] = useState<GameRecord[]>([]);
 
 	const handleShow = () => {
@@ -38,54 +41,54 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
 			<View style={{ flex:1, backgroundColor: "rgba(0,0,0,0.3)", alignItems: "center", justifyContent: "center", padding: 16 }}>
 				<View style={{ width: "92%", maxWidth: 720, height: "80%", borderRadius: 16, backgroundColor: "rgba(240,240,240,0.95)", padding: isTablet? 36 : 24}}>
 					<View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-            <Text style={[isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile, { fontWeight: "700" }]}>
+            <Text style={[textLarge, styles.textTitle]}>
 							최근 10게임 통계
 						</Text>
             <Pressable onPress={onClose}>
-              <Text style={[isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile, { color: "#666", fontWeight: "700" }]}>
+              <Text style={[textLarge, styles.textClose]}>
 								X
 							</Text>
             </Pressable>
           </View>
 					<ScrollView showsVerticalScrollIndicator={false}>
 						<View style={{ backgroundColor: "rgba(255,255,255,0.8)", borderRadius: 12, padding: isTablet ? 24 : 16, marginBottom: isTablet ? 24 : 16 }}>
-							<Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", marginBottom: isTablet ? 16 : 12 }]}>요약</Text>
+							<Text style={[textMedium, styles.textStrong, { marginBottom: isTablet ? 16 : 12 }]}>요약</Text>
 							<View style={{ gap: isTablet ? 12 : 8 }}>
 								<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-									<Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>승리</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", color: "#0064FF" }]}>{winCount}회</Text>
+									<Text style={[textMedium, styles.textNormal]}>승리</Text>
+                  <Text style={[textMedium, styles.textStrong, styles.textBlue]}>{winCount}회</Text>
 								</View>
 								<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>패배</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", color: "#EF4444" }]}>{loseCount}회</Text>
+                  <Text style={[textMedium, styles.textNormal]}>패배</Text>
+                  <Text style={[textMedium, styles.textStrong, styles.textRed]}>{loseCount}회</Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>평균 이닝</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600" }]}>{avgInnings.toFixed(1)}이닝</Text>
+                  <Text style={[textMedium, styles.textNormal]}>평균 이닝</Text>
+                  <Text style={[textMedium, styles.textStrong]}>{avgInnings.toFixed(1)}이닝</Text>
                 </View>
 								<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>평균 볼 비율</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", color: "#22C55E" }]}>
+                  <Text style={[textMedium, styles.textNormal]}>평균 볼 비율</Text>
+                  <Text style={[textMedium, styles.textStrong, styles.textGreen]}>
                     {(avgBallRatio * 100).toFixed(1)}%
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>평균 스트라이크 비율</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", color: "#FACC15" }]}>
+                  <Text style={[textMedium, styles.textNormal]}>평균 스트라이크 비율</Text>
+                  <Text style={[textMedium, styles.textStrong, styles.textYellow]}>
                     {(avgStrikeRatio * 100).toFixed(1)}%
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#555" }]}>평균 플레이 시간</Text>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600" }]}>{Math.round(avgSec)}초</Text>
+                  <Text style={[textMedium, styles.textNormal]}>평균 플레이 시간</Text>
+                  <Text style={[textMedium, styles.textStrong]}>{Math.round(avgSec)}초</Text>
                 </View>
 							</View>
 						</View>
 						<View style={{ marginBottom: 16 }}>
-              <Text style={[isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile, { fontWeight: "600", marginBottom: isTablet ? 18 : 12 }]}>게임별 기록</Text>
+              <Text style={[textLarge, styles.textStrong, { marginBottom: isTablet ? 18 : 12 }]}>게임별 기록</Text>
               {recentGames.length === 0 ? (
                 <View style={{ padding: 20, alignItems: "center" }}>
-                  <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { color: "#999" }]}>기록이 없습니다</Text>
+                  <Text style={[textMedium, styles.textBlur]}>기록이 없습니다</Text>
                 </View>
               ) : (
                 <View style={{ gap: 8 }}>
@@ -103,16 +106,22 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
                     >
                       <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: "row", gap: isTablet ? 14 :  8, alignItems: "center", marginBottom: 4 }}>
-                          <Text style={[isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile, { fontWeight: "600", color: game.result === "win" ? "#22C55E" : "#EF4444" }]}>
+                          <Text
+                            style={[
+                              textMedium,
+                              styles.textStrong,
+                              game.result === "win" ? styles.textGreen : styles.textRed,
+                            ]}
+                          >
                             {game.result === "win" ? "승리" : game.result === "extralose" ? "연장패배" : "패배"}
                           </Text>
-                          <Text style={[isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile, { fontWeight: "600", color: "#999" }]}>
+                          <Text style={[textSmall, styles.textStrong, styles.textBlur]}>
                             {game.innings}이닝
                           </Text>
-                          <Text style={[isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile, { fontWeight: "600", color: "#999" }]}>
+                          <Text style={[textSmall, styles.textStrong, styles.textBlur]}>
                             {game.numLength}자리
                           </Text>
-                          <Text style={[isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile, { fontWeight: "600", color: "#999" }]}>
+                          <Text style={[textSmall, styles.textStrong, styles.textBlur]}>
                             {game.sec}초
                           </Text>
                         </View>
@@ -121,13 +130,13 @@ const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
                             <View style={{ width: isTablet ? 80 : 40, height: isTablet ? 12 : 8, backgroundColor: "#E5E7EB", borderRadius: 4, overflow: "hidden" }}>
                               <View style={{ width: `${game.ballRatio * 100}%`, height: "100%", backgroundColor: "#22C55E" }} />
                             </View>
-                            <Text style={[isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile, { fontWeight: "600", color: "#666" }]}>B</Text>
+                            <Text style={[textSmall, styles.textStrong, styles.textClose]}>B</Text>
                           </View>
                           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                             <View style={{ width: isTablet ? 80 : 40, height: isTablet ? 12 : 8, backgroundColor: "#E5E7EB", borderRadius: 4, overflow: "hidden" }}>
                               <View style={{ width: `${game.strikeRatio * 100}%`, height: "100%", backgroundColor: "#FACC15" }} />
                             </View>
-                            <Text style={[isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile, { fontWeight: "600", color: "#666" }]}>S</Text>
+                            <Text style={[textSmall, styles.textStrong, styles.textClose]}>S</Text>
                           </View>
                         </View>
                       </View>
@@ -150,6 +159,15 @@ const styles = StyleSheet.create({
   smallFontSizeTablet: { fontSize: 24 },
   mediumFontSizeTablet: { fontSize: 28 },
   largeFontSizeTablet: { fontSize: 36 },
+  textTitle: { fontWeight: "700" },
+  textStrong: { fontWeight: "600" },
+  textNormal: { color: "#555" },
+  textBlur: { color: "#999" },
+  textClose: { color: "#666", fontWeight: "700" },
+  textBlue: { color: "#0064FF" },
+  textRed: { color: "#EF4444" },
+  textGreen: { color: "#22C55E" },
+  textYellow: { color: "#FACC15" },
 });
 
 export default GameStatsModal;
