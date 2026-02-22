@@ -1,12 +1,12 @@
-import { Text, View, useWindowDimensions } from "react-native";
+import { useResponsive } from "@/hooks/useResponsive";
+import { Text, View } from "react-native";
 
 type TopBannerProps = {
   sec: number;
 };
 
 const TopBanner = ({ sec }: TopBannerProps) => {
-  const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const { isTablet } = useResponsive();
 
   return (
     <View className={`${isTablet ? "mt-10" : ""} mx-auto w-full px-4`}>

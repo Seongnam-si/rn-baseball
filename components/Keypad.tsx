@@ -1,4 +1,5 @@
-import { Pressable, Text, View, useWindowDimensions } from "react-native";
+import { useResponsive } from "@/hooks/useResponsive";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type KeypadProps = {
@@ -6,9 +7,7 @@ type KeypadProps = {
 };
 
 const Keypad = ({ numberSetter }: KeypadProps) => {
-  const { width, height } = useWindowDimensions();
-  const isTablet = width >= 768;
-  const keypadHeight = Math.round(height * (isTablet ? 0.36 : 0.32));
+  const { isTablet, keypadHeight } = useResponsive();
   const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (

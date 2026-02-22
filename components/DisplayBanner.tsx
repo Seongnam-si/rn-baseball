@@ -1,6 +1,7 @@
-import useBannerLogic from "@/hooks/useBannerLogic";
+import { useBannerLogic } from "@/hooks/useBannerLogic";
+import { useResponsive } from "@/hooks/useResponsive";
 import { DisplayBannerProps } from "@/types/types";
-import { Image, View, useWindowDimensions } from "react-native";
+import { Image, View } from "react-native";
 
 const BALL_IMAGES: Record<number, any> = {
   1: require("../public/BALL1.png"),
@@ -16,8 +17,7 @@ const STRIKE_IMAGES: Record<number, any> = {
 
 const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
 	const { isVisible, contentType } = useBannerLogic({ modalState, attempts });
-  const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const { isTablet } = useResponsive();
   const imgSize = isTablet ? 186 : 128;
 
   if (modalState || !isVisible) {

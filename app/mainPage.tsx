@@ -4,19 +4,19 @@ import InputWindow from "@/components/InputWindow";
 import IntroModal from "@/components/IntroModal";
 import Keypad from "@/components/Keypad";
 import TopBanner from "@/components/TopBanner";
-import useGameLogic from "@/hooks/useGameLogic";
-import { useWindowDimensions, View } from "react-native";
+import { useGameLogic } from "@/hooks/useGameLogic";
+import { useResponsive } from "@/hooks/useResponsive";
+import { View } from "react-native";
 
 export default function MainPage() {
   const {
     isModalOpen, gameState, resetGame, playExtraInning, endingMent,
     attempts,
     inputNumber, runJudgeResult, handleClickDeleteNumber, numLength, isCheckDone,
-    handleClickNumber, 
+    handleClickNumber,
     gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, helpGameStart
   } = useGameLogic();
-  const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const { isTablet } = useResponsive();
 
   const leftColumn = (
     <View style={{ flex: 1 }}>

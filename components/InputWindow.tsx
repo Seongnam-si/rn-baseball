@@ -1,4 +1,5 @@
-import { Image, Pressable, Text, View, useWindowDimensions } from "react-native";
+import { useResponsive } from "@/hooks/useResponsive";
+import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type InputWindowProps = {
@@ -16,9 +17,7 @@ const InputWindow = ({
   numLength,
   enterActivate,
 }: InputWindowProps) => {
-  const { width, height } = useWindowDimensions();
-  const isTablet = width >= 768;
-  const keypadHeight = Math.round(height * (isTablet ? 0.36 : 0.32));
+  const { isTablet, keypadHeight, height } = useResponsive();
   const inputBottom = keypadHeight - Math.round(height * (isTablet ? 0.01 : 0.02));
 
   return (

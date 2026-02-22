@@ -1,5 +1,6 @@
 import { Attempt } from "@/types/types";
-import { ScrollView, Text, View, useWindowDimensions } from "react-native";
+import { useResponsive } from "@/hooks/useResponsive";
+import { ScrollView, Text, View } from "react-native";
 
 type DisplayProps = {
   attempts: Attempt[];
@@ -20,9 +21,7 @@ type AttemptRowProps = {
 };
 
 const Display = ({ attempts }: DisplayProps) => {
-	const { width, height } = useWindowDimensions();
-	const isTablet = width >= 768;
-	const isTabletPortrait = isTablet && height >= width;
+	const { isTablet, isTabletPortrait, height } = useResponsive();
 	const tabletTextSize = isTabletPortrait ? "text-2xl" : "text-3xl";
   const displayMaxHeight = isTablet ? Math.round(height * 0.8) : 300;
 

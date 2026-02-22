@@ -1,6 +1,7 @@
+import { useResponsive } from "@/hooks/useResponsive";
 import { GameRecord, loadRecentGames } from "@/utils/storageLogics";
 import { useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 type GameStatsModalProps = {
 	isVisible: boolean;
@@ -8,8 +9,7 @@ type GameStatsModalProps = {
 }
 
 const GameStatsModal = ({ isVisible, onClose }: GameStatsModalProps) => {
-  const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const { isTablet } = useResponsive();
   const textSmall = isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile;
   const textMedium = isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile;
   const textLarge = isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile;

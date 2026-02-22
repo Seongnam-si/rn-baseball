@@ -1,5 +1,6 @@
+import { useResponsive } from "@/hooks/useResponsive";
 import { GameStats } from "@/utils/storageLogics";
-import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle, useWindowDimensions } from "react-native";
+import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 
 type ModalProps = {
   modalState: boolean;
@@ -29,12 +30,12 @@ const GameModal = ({
   sec,
   helpGameStart
 }: ModalProps) => {
-  if (!modalState) return null;
-  const { width } = useWindowDimensions();
-  const isTablet = width >= 768;
+  const { isTablet } = useResponsive();
   const textSmall = isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile;
   const textMedium = isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile;
   const textLarge = isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile;
+
+  if (!modalState) return null;
 
   return (
     <Modal transparent animationType="fade" visible={modalState}>
