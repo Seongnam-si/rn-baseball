@@ -1,6 +1,6 @@
 import { useResponsive } from "@/hooks/useResponsive";
 import { GameStats } from "@/utils/storageLogics";
-import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
+import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 type ModalProps = {
   modalState: boolean;
@@ -31,148 +31,118 @@ const GameModal = ({
   helpGameStart
 }: ModalProps) => {
   const { isTablet } = useResponsive();
-  const textSmall = isTablet ? styles.smallFontSizeTablet : styles.smallFontSizeMobile;
-  const textMedium = isTablet ? styles.mediumFontSizeTablet : styles.mediumFontSizeMobile;
-  const textLarge = isTablet ? styles.largeFontSizeTablet : styles.largeFontSizeMobile;
+  const fontSm = isTablet ? "text-2xl" : "text-[10px]";
+  const fontMd = isTablet ? "text-[28px]" : "text-sm";
+  const fontLg = isTablet ? "text-[32px]" : "text-lg";
+  const btnCls = "bg-[#0064FF] px-5 py-3 rounded-xl items-center";
 
   if (!modalState) return null;
 
   return (
     <Modal transparent animationType="fade" visible={modalState}>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "rgba(0,0,0,0.3)",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 16,
-        }}
-      >
+      <View className="flex-1 bg-black/30 items-center justify-center p-4">
         <View
-          style={{
-            width: "92%",
-            maxWidth: 720,
-            height: isTablet ? "80%" : "60%",
-            borderRadius: 16,
-            backgroundColor: "rgba(240,240,240,0.95)",
-            padding: isTablet ? 36 : 24,
-          }}
+          className={`w-[92%] max-w-[720px] rounded-2xl ${isTablet ? "h-4/5 p-9" : "h-3/5 p-6"}`}
+          style={{ backgroundColor: "rgba(240,240,240,0.95)" }}
         >
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {gameState === "intro" && (
-              <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: isTablet ? 24 : 12 }}>
-                <Text style={[textLarge, styles.textNormal]}>
+              <View className={`flex-1 items-center justify-center ${isTablet ? "gap-6" : "gap-3"}`}>
+                <Text className={fontLg} style={styles.textNormal}>
                   서로 다른 숫자를 맞추는 게임이에요!
                 </Text>
-                <Text style={[textMedium, styles.textBlur, { textAlign: "center" }]}>
+                <Text className={`${fontMd} text-center`} style={styles.textBlur}>
                   숫자의 개수를 선택할 수 있어요!
                 </Text>
-                <Text style={[textMedium, styles.textBlur, { textAlign: "center" }]}>
+                <Text className={`${fontMd} text-center`} style={styles.textBlur}>
                   기회는 기본 11번, 추가로 18번까지 가능해요!
                 </Text>
-                <View style={{ marginTop: 16, gap: 8 }}>
-                  <Text style={textMedium}>
+                <View className="mt-4 gap-2">
+                  <Text className={fontMd}>
                     <Text style={styles.textYellow}>S</Text> 숫자와 자리가 모두 맞아요 😃
                   </Text>
-                  <Text style={textMedium}>
+                  <Text className={fontMd}>
                     <Text style={styles.textGreen}>B</Text> 숫자는 있지만 자리가 달라요 😅
                   </Text>
-                  <Text style={textMedium}>
+                  <Text className={fontMd}>
                     <Text style={styles.textRed}>O</Text> 숫자가 없어요 🤣
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", gap: isTablet ? 24 : 12, marginTop: 16 }}>
+                <View className={`flex-row mt-4 ${isTablet ? "gap-6" : "gap-3"}`}>
                   <Pressable
-                    style={buttonStyle}
+                    className={btnCls}
                     onPress={() => helpGameStart("normal")}
                   >
-                    <Text style={[textMedium, buttonText]}>
+                    <Text className={`${fontMd} text-white font-semibold`}>
                       3 자리
                     </Text>
                   </Pressable>
                   <Pressable
-                    style={buttonStyle}
+                    className={btnCls}
                     onPress={() => helpGameStart("hard")}
                   >
-                    <Text style={[textMedium, buttonText]}>
+                    <Text className={`${fontMd} text-white font-semibold`}>
                       4 자리
                     </Text>
                   </Pressable>
                 </View>
-                {isTablet ? 
-                  <Text style={[textMedium, styles.textStrong, { marginTop: 12 }]}>
+                {isTablet ?
+                  <Text className={`${fontMd} mt-3`} style={styles.textStrong}>
                     📐 가로 모드에서 더욱 편안한 플레이가 가능합니다.
-                  </Text>: ""
+                  </Text> : ""
                 }
               </View>
             )}
             {gameState === "win" && (
-              <View style={centerBox}>
+              <View className="flex-1 items-center justify-center gap-1.5">
                 <Image
                   source={require("../public/HOMERUN.png")}
                   style={{ height: 300, resizeMode: "contain", marginTop: -150, transform: [{ rotate: "-3deg" }] }}
                 />
-                <View style={{ marginTop: -80 }}>
-                  <Text style={[styles.textStrong, textLarge]}>
+                <View className="-mt-20">
+                  <Text className={fontLg} style={styles.textStrong}>
                     {endingMent}
                   </Text>
-                  <View style={{ gap: 6, marginTop: 10, alignItems: "center", backgroundColor: "rgba(0,0,0,0.09)", borderRadius: 12, padding: 12 }}>
-                    <Text style={[styles.textMeduim, textMedium]}>
+                  <View
+                    className="gap-1.5 mt-2.5 items-center rounded-xl p-3"
+                    style={{ backgroundColor: "rgba(0,0,0,0.09)" }}
+                  >
+                    <Text className={fontMd} style={styles.textMeduim}>
                       이번 게임 : {(currentInning - 1)}이닝
                     </Text>
-                    <Text style={[styles.textMeduim, textMedium]}>
+                    <Text className={fontMd} style={styles.textMeduim}>
                       소요시간 : {sec} 초
                     </Text>
-                    <View style={{ marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.1)", width: "100%", alignItems: "center" }}>
-                      <Text style={[styles.textStrong, textSmall, { marginBottom: 4 }]}>
+                    <View className="mt-2 pt-2 border-t border-black/10 w-full items-center">
+                      <Text className={`${fontSm} mb-1`} style={styles.textStrong}>
                         이번 게임 비율
                       </Text>
-                      <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
-                        <View style={{ alignItems: "center" }}>
-                          <View
-                            style={{
-                              width: 60,
-                              height: 60,
-                              borderRadius: 30,
-                              backgroundColor: "#22C55E",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              marginBottom: 4,
-                            }}
-                          >
-                            <Text style={[styles.textStrong, textSmall, { color: "white" }]}>
+                      <View className="flex-row gap-4 items-center">
+                        <View className="items-center">
+                          <View className="w-[60px] h-[60px] rounded-full bg-green-500 items-center justify-center mb-1">
+                            <Text className={`${fontSm} text-white`} style={styles.textStrong}>
                               {(ballRatio * 100).toFixed(0)}%
                             </Text>
                           </View>
-                          <Text style={[styles.textStrong, textSmall]}>
+                          <Text className={fontSm} style={styles.textStrong}>
                             볼
                           </Text>
                         </View>
-                        <View style={{ alignItems: "center" }}>
-                          <View
-                            style={{
-                              width: 60,
-                              height: 60,
-                              borderRadius: 30,
-                              backgroundColor: "#FACC15",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              marginBottom: 4,
-                            }}
-                          >
-                            <Text style={[styles.textStrong, textSmall, { color: "white" }]}>
+                        <View className="items-center">
+                          <View className="w-[60px] h-[60px] rounded-full bg-yellow-400 items-center justify-center mb-1">
+                            <Text className={`${fontSm} text-white`} style={styles.textStrong}>
                               {(strikeRatio * 100).toFixed(0)}%
                             </Text>
                           </View>
-                          <Text style={[styles.textStrong, textSmall]}>
+                          <Text className={fontSm} style={styles.textStrong}>
                             스트라이크
                           </Text>
                         </View>
                       </View>
                     </View>
                   </View>
-                  <Pressable style={[buttonStyle, { marginTop: 20}]} onPress={onRestart}>
-                    <Text style={[textLarge, buttonText]}>
+                  <Pressable className={`${btnCls} mt-5`} onPress={onRestart}>
+                    <Text className={`${fontLg} text-white font-semibold`}>
                       처음으로 돌아가기
                     </Text>
                   </Pressable>
@@ -180,21 +150,21 @@ const GameModal = ({
               </View>
             )}
             {gameState === "lose" && (
-              <View style={[centerBox, { gap: isTablet ? 24 : 12 }]}>
-                <Text style={[styles.textStrong, textLarge]}>
+              <View className={`flex-1 items-center justify-center ${isTablet ? "gap-6" : "gap-3"}`}>
+                <Text className={fontLg} style={styles.textStrong}>
                   11번 안에 맞추지 못했어요.
                 </Text>
-                <Text style={[textMedium, { marginTop: 4 }]}>
+                <Text className={`${fontMd} mt-1`}>
                   연장전을 진행하거나, 게임을 포기할 수 있어요.
                 </Text>
-                <View style={{ gap: 12, marginTop: 16 }}>
-                  <Pressable style={buttonStyle} onPress={playExtraInning}>
-                    <Text style={[textLarge, buttonText]}>
+                <View className="gap-3 mt-4">
+                  <Pressable className={btnCls} onPress={playExtraInning}>
+                    <Text className={`${fontLg} text-white font-semibold`}>
                       연장전 진행
                     </Text>
                   </Pressable>
-                  <Pressable style={{ paddingHorizontal: 20, paddingVertical: 12, borderRadius: 12, alignItems: "center", backgroundColor: "#6B7280" }} onPress={onRestart}>
-                    <Text style={[textLarge, buttonText]}>
+                  <Pressable className="px-5 py-3 rounded-xl items-center bg-gray-500" onPress={onRestart}>
+                    <Text className={`${fontLg} text-white font-semibold`}>
                       포기하기
                     </Text>
                   </Pressable>
@@ -202,19 +172,19 @@ const GameModal = ({
               </View>
             )}
             {gameState === "extralose" && (
-              <View style={[centerBox, { gap: isTablet ? 24 : 12 }]}>
-                <Text style={[textLarge, styles.textStrong, styles.textRed]}>
+              <View className={`flex-1 items-center justify-center ${isTablet ? "gap-6" : "gap-3"}`}>
+                <Text className={fontLg} style={[styles.textStrong, styles.textRed]}>
                   패배했어요 🥲
                 </Text>
-                <Text style={[textLarge, styles.textStrong, { marginTop: 4 }]}>
+                <Text className={`${fontLg} mt-1`} style={styles.textStrong}>
                   정답은 {comNumber} 이었어요.
                 </Text>
-                <Text style={[textLarge, styles.textStrong, { marginTop: 4 }]}>
+                <Text className={`${fontLg} mt-1`} style={styles.textStrong}>
                   게임을 다시 시작해 보세요.
                 </Text>
-                <View style={{ marginTop: 16 }}>
-                  <Pressable style={buttonStyle} onPress={onRestart}>
-                    <Text style={[textLarge, buttonText]}>
+                <View className="mt-4">
+                  <Pressable className={btnCls} onPress={onRestart}>
+                    <Text className={`${fontLg} text-white font-semibold`}>
                       다시 시작하기
                     </Text>
                   </Pressable>
@@ -228,33 +198,7 @@ const GameModal = ({
   );
 };
 
-const buttonStyle: ViewStyle = {
-  backgroundColor: "#0064FF",
-  paddingHorizontal: 20,
-  paddingVertical: 12,
-  borderRadius: 12,
-  alignItems: "center",
-};
-
-const buttonText: TextStyle = {
-  color: "white",
-  fontWeight: "600",
-};
-
-const centerBox: ViewStyle = {
-  flex: 1,
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 6,
-};
-
 const styles = StyleSheet.create({
-  smallFontSizeMobile: { fontSize: 10 },
-  mediumFontSizeMobile: { fontSize: 14 },
-  largeFontSizeMobile: { fontSize: 18 },
-  smallFontSizeTablet: { fontSize: 24 },
-  mediumFontSizeTablet: { fontSize: 28 },
-  largeFontSizeTablet: { fontSize: 32 },
   textStrong: { fontWeight: "600" },
   textMeduim: { fontWeight: "400" },
   textNormal: { color: "#111" },
