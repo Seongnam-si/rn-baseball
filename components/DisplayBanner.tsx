@@ -1,9 +1,7 @@
 import useBannerLogic from "@/hooks/useBannerLogic";
 import { DisplayBannerProps } from "@/types/types";
-import { Image, View } from "react-native";
+import { Image, View, useWindowDimensions } from "react-native";
 
-const IMAGE_HEIGHT = 128;
-const IMAGE_WIDTH = 128;
 const BALL_IMAGES: Record<number, any> = {
   1: require("../public/BALL1.png"),
   2: require("../public/BALL2.png"),
@@ -18,6 +16,9 @@ const STRIKE_IMAGES: Record<number, any> = {
 
 const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
 	const { isVisible, contentType } = useBannerLogic({ modalState, attempts });
+  const { width } = useWindowDimensions();
+  const isTablet = width >= 768;
+  const imgSize = isTablet ? 186 : 128;
 
   if (modalState || !isVisible) {
     return null;
@@ -30,13 +31,13 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
         paddingVertical: 16,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: -30
+        marginTop: isTablet ? 30 : -30
       }}
     >
       {contentType.type === "playball" && (
         <Image
           source={require("../public/PLAYBALL.png")}
-          style={{ height: IMAGE_HEIGHT, resizeMode: "contain" }}
+          style={{ height: imgSize, resizeMode: "contain" }}
         />
       )}
       {contentType.type === "ball" && (
@@ -51,8 +52,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           <Image
             source={BALL_IMAGES[contentType.ballCount]}
             style={{
-              height: IMAGE_HEIGHT,
-              width: IMAGE_WIDTH,
+              height: imgSize,
+              width: imgSize,
               resizeMode: "contain",
               marginRight: -96,
             }}
@@ -60,8 +61,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           <Image
             source={require("../public/BALL.png")}
             style={{ 
-              height: IMAGE_HEIGHT, 
-              width: IMAGE_WIDTH,
+              height: imgSize, 
+              width: imgSize,
               resizeMode: "contain" 
             }}
           />
@@ -79,8 +80,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           <Image
             source={STRIKE_IMAGES[contentType.strikeCount]}
             style={{
-              height: IMAGE_HEIGHT,
-              width: IMAGE_WIDTH,
+              height: imgSize,
+              width: imgSize,
               resizeMode: "contain",
               marginRight: -80,
             }}
@@ -88,8 +89,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
           <Image
             source={require("../public/STRIKE.png")}
             style={{ 
-              height: IMAGE_HEIGHT, 
-              width: IMAGE_WIDTH,
+              height: imgSize, 
+              width: imgSize,
               resizeMode: "contain" 
             }}
           />
@@ -109,8 +110,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             <Image
               source={BALL_IMAGES[contentType.ballCount]}
               style={{
-                height: IMAGE_HEIGHT,
-                width: IMAGE_WIDTH,
+                height: imgSize,
+                width: imgSize,
                 resizeMode: "contain",
                 marginRight: -96,
               }}
@@ -118,8 +119,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             <Image
               source={require("../public/BALL.png")}
               style={{ 
-                height: IMAGE_HEIGHT, 
-                width: IMAGE_WIDTH,
+                height: imgSize, 
+                width: imgSize,
                 resizeMode: "contain" 
               }}
             />
@@ -135,8 +136,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             <Image
               source={STRIKE_IMAGES[contentType.strikeCount]}
               style={{
-                height: IMAGE_HEIGHT,
-                width: IMAGE_WIDTH,
+                height: imgSize,
+                width: imgSize,
                 resizeMode: "contain",
                 marginRight: -80,
               }}
@@ -144,8 +145,8 @@ const DisplayBanner = ({ modalState, attempts }: DisplayBannerProps) => {
             <Image
               source={require("../public/STRIKE.png")}
               style={{ 
-                height: IMAGE_HEIGHT, 
-                width: IMAGE_WIDTH,
+                height: imgSize, 
+                width: imgSize,
                 resizeMode: "contain" 
               }}
             />

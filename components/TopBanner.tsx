@@ -1,20 +1,23 @@
-import { Text, View } from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 
 type TopBannerProps = {
   sec: number;
 };
 
 const TopBanner = ({ sec }: TopBannerProps) => {
+  const { width } = useWindowDimensions();
+  const isTablet = width >= 768;
+
   return (
-    <View className="mx-auto w-full max-w-md px-4">
+    <View className={`${isTablet ? "mt-10" : ""} mx-auto w-full px-4`}>
       <View className="flex-row overflow-hidden py-3 items-center justify-center">
-        <Text className="text-xl mr-2">
+        <Text className={`${isTablet ? "text-5xl" : "text-xl"} mr-2`}>
           ⏱️ 
         </Text>
         <Text
-          className="text-semibold text-xl tracking-widest"
+          className={`${isTablet ? "text-5xl" : "text-xl"} text-semibold tracking-widest`}
           style={{
-            width: 60,
+            width: isTablet ? 100 : 60,
             fontVariant: ["tabular-nums"]
           }}
         >

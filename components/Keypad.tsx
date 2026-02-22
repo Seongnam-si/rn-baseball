@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type KeypadProps = {
@@ -6,6 +6,9 @@ type KeypadProps = {
 };
 
 const Keypad = ({ numberSetter }: KeypadProps) => {
+  const { width, height } = useWindowDimensions();
+  const isTablet = width >= 768;
+  const keypadHeight = Math.round(height * (isTablet ? 0.36 : 0.32));
   const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
@@ -13,7 +16,7 @@ const Keypad = ({ numberSetter }: KeypadProps) => {
       <SafeAreaView
         edges={["bottom"]}
         className="bg-white/80"
-        style={{ height: 300 }}
+        style={{ height: keypadHeight }}
       >
         <View style={{ flexDirection: "row", flexWrap: "wrap", height: "100%" }}>
           {keys.map((num) => (
@@ -29,7 +32,7 @@ const Keypad = ({ numberSetter }: KeypadProps) => {
                 borderColor: "rgba(0,0,0,0.1)",
               }}
             >
-              <Text style={{ fontSize: 24, fontWeight: "500", color: "black" }}>
+              <Text style={{ fontSize: isTablet ? 38 : 24, fontWeight: "500", color: "black" }}>
                 {num}
               </Text>
             </Pressable>
