@@ -4,7 +4,7 @@ type JudgeResult = {
 	out: number;
 };
 
-const judgeResult = (comNum: number[], userNum: number[]): JudgeResult => {
+export const judgeResult = (comNum: number[], userNum: number[]): JudgeResult => {
 	let result = {
 		ball: 0,
 		strike: 0,
@@ -27,5 +27,3 @@ const judgeResult = (comNum: number[], userNum: number[]): JudgeResult => {
 
 	return result;
 };
-
-export default judgeResult;

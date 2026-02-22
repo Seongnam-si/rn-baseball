@@ -1,12 +1,12 @@
 import { Attempt } from "@/types/types";
-import chooseEndingMent from "@/utils/chooseEndingMent";
-import createRandomNumber from "@/utils/createRandomNumber";
-import judgeResult from "@/utils/judgeResult";
+import { chooseEndingMent } from "@/utils/chooseEndingMent";
+import { createRandomNumber } from "@/utils/createRandomNumber";
+import { judgeResult } from "@/utils/judgeResult";
 import { addGameRecord, GameStats, updateGameStats } from "@/utils/storageLogics";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 
-const useGameLogic = () => {
+export const useGameLogic = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [inputNumber, setInputNumber] = useState<number[]>([]);
   const [comNumber, setComNumber] = useState<number[]>([]);
@@ -171,5 +171,3 @@ const useGameLogic = () => {
     gameStats, attemptCount, ballRatio, strikeRatio, comNumber, sec, setGameStats, helpGameStart
   }
 };
-
-export default useGameLogic;

@@ -4,10 +4,8 @@ const mentArray = [
 	"끝까지 포기하지 않았어요 💪"
 ]
 
-const chooseEndingMent = (inning: number): string => {
+export const chooseEndingMent = (inning: number): string => {
 	if (inning <= 5) return mentArray[0];
 	if (inning <= 11) return mentArray[1];
 	return mentArray[2];
 };
-
-export default chooseEndingMent;

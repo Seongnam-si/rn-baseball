@@ -1,4 +1,4 @@
-const createRandomNumber = (length: number): number[] => {
+export const createRandomNumber = (length: number): number[] => {
   const result: number[] = [];
 
   while (result.length < length) {
@@ -11,5 +11,3 @@ const createRandomNumber = (length: number): number[] => {
 
   return result;
 };
-
-export default createRandomNumber;

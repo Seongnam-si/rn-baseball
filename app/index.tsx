@@ -1,5 +1,5 @@
 import GameStatsModal from "@/components/GameStatsModal";
-import useGameLogic from "@/hooks/useGameLogic";
+import { useGameLogic } from "@/hooks/useGameLogic";
 import { loadGameStats } from "@/utils/storageLogics";
 import { router } from "expo-router";
 import { useState } from "react";

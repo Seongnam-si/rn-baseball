@@ -7,7 +7,7 @@ type ContentType =
   | { type: "strike"; strikeCount: number }
   | { type: "mixed"; ballCount: number; strikeCount: number };
 
-const useBannerLogic = ({ modalState, attempts }: DisplayBannerProps) => {
+export const useBannerLogic = ({ modalState, attempts }: DisplayBannerProps) => {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
   const [contentType, setContentType] = useState<ContentType>({ type: "playball" });
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -88,5 +88,3 @@ const useBannerLogic = ({ modalState, attempts }: DisplayBannerProps) => {
 
   return { isVisible, contentType };
 };
-
-export default useBannerLogic;
