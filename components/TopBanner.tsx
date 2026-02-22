@@ -15,11 +15,8 @@ const TopBanner = ({ sec }: TopBannerProps) => {
           ⏱️ 
         </Text>
         <Text
-          className={`${isTablet ? "text-5xl" : "text-xl"} text-semibold tracking-widest`}
-          style={{
-            width: isTablet ? 100 : 60,
-            fontVariant: ["tabular-nums"]
-          }}
+          className={`${isTablet ? "text-5xl w-[100px]" : "text-xl w-[60px]"} text-semibold tracking-widest`}
+          style={{ fontVariant: ["tabular-nums"] }}
         >
           {sec}
         </Text>

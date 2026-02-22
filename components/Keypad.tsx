@@ -17,21 +17,14 @@ const Keypad = ({ numberSetter }: KeypadProps) => {
         className="bg-white/80"
         style={{ height: keypadHeight }}
       >
-        <View style={{ flexDirection: "row", flexWrap: "wrap", height: "100%" }}>
+        <View className="flex-row flex-wrap h-full">
           {keys.map((num) => (
             <Pressable
               key={num}
               onPress={() => numberSetter(num)}
-              style={{
-                width: "33.3%",
-                height: "33.3%",
-                alignItems: "center",
-                justifyContent: "center",
-                borderWidth: 1,
-                borderColor: "rgba(0,0,0,0.1)",
-              }}
+              className="w-1/3 h-1/3 items-center justify-center border border-black/10"
             >
-              <Text style={{ fontSize: isTablet ? 38 : 24, fontWeight: "500", color: "black" }}>
+              <Text className={`${isTablet ? "text-[38px]" : "text-2xl"} font-medium text-black`}>
                 {num}
               </Text>
             </Pressable>
