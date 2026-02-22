@@ -1,5 +1,5 @@
-import { Attempt } from "@/types/types";
 import { useResponsive } from "@/hooks/useResponsive";
+import { Attempt } from "@/types/types";
 import { ScrollView, Text, View } from "react-native";
 
 type DisplayProps = {
@@ -16,14 +16,11 @@ type AttemptRowProps = {
 	};
 	opacity?: number;
 	isLatest?: boolean;
-	isTablet?: boolean;
-	tabletTextSize?: "text-2xl" | "text-3xl";
 };
 
 const Display = ({ attempts }: DisplayProps) => {
-	const { isTablet, isTabletPortrait, height } = useResponsive();
-	const tabletTextSize = isTabletPortrait ? "text-2xl" : "text-3xl";
-  const displayMaxHeight = isTablet ? Math.round(height * 0.8) : 300;
+	const { isTablet, height } = useResponsive();
+  const displayMaxHeight = Math.round(height * (isTablet ? 0.8 : 0.35));
 
   return (
     <View className={isTablet ? "flex-1 justify-center" : ""}>
@@ -47,8 +44,6 @@ const Display = ({ attempts }: DisplayProps) => {
 					roundResult={att.roundResult}
 					opacity={idx === 0 ? 1 : 0.5}
 					isLatest={idx === 0}
-					isTablet={isTablet}
-					tabletTextSize={tabletTextSize}
 				/>
 			))
 		)}
@@ -65,9 +60,9 @@ const AttemptRow = ({
 	roundResult,
 	opacity = 1,
 	isLatest = false,
-	isTablet = false,
-	tabletTextSize = "text-3xl",
 }: AttemptRowProps) => {
+	const { isTablet, isTabletPortrait } = useResponsive();
+	const tabletTextSize = isTabletPortrait ? "text-2xl" : "text-3xl";
 
 	return (
 		<View
@@ -88,7 +83,7 @@ const AttemptRow = ({
 			style={{ opacity }}
 		>
 				<Text
-					className={`flex-[0.5] text-gray-500 font-semibold ${isTablet ? tabletTextSize : "text-sm"}`}
+					className={`${isTablet ? "flex-[0.55]" : "flex-[0.5]"} text-gray-500 font-semibold ${isTablet ? tabletTextSize : "text-sm"}`}
 				>
 					{index}이닝
 				</Text>
